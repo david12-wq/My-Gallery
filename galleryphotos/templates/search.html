@@ -1,0 +1,37 @@
+{%extends 'all/base.html'%} 
+{% block content %}
+<div class="container">
+  <div class="row">
+    {% if images %}
+    <h2>Found {{ images|length }} of searched term {{message}}</h2>
+    {% else %}
+    <h2>Found 0 images for the search term <strong>{{message}}</strong></h2>
+    {% endif %}
+  </div>
+  <hr>
+
+
+  <div class="row container-fluid content">
+    {% for image in images %}
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 thumbnails"
+      style="height:40vh; margin-bottom:10vh; padding-left:40px">
+
+      <div class="card">
+        <div class="card-body">
+          <img src="{{image.image_url.url}}" class="img-fluid img-thumbnail img-responsive " alt="" data-toggle="modal"
+            data-target="#{{image.id}}" style="height:40vh; width:40vw" />
+        </div>
+      </div>
+    </div>
+
+    <p>
+      {% for category in image.categories.all %}
+      <span class="badge badge-primary" style="font-size: 1em">{{category}}</span>
+      {% endfor %}
+    </p>
+    {% endfor %}
+  </div>
+ 
+</div>
+{% endblock %}
+
