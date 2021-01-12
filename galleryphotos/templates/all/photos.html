@@ -1,0 +1,91 @@
+{% extends 'all/base.html'%}
+
+<section>
+  {% block content %}
+
+  <div class="container h-100 d-flex" style="opacity: 0.5;">
+    <div class="jumbotron my-auto" style=" height:32vh">
+      <p style="font-family: 'Fondamento', cursive; font-size: 35px">Welcome, search your selected images based on the
+        following limited categories: House,Cars and Nature. </p>
+      <hr>
+    </div>
+  </div>
+ 
+
+
+  <div class="row container-fluid content">
+    {% for galleryImage in galleryImages %}
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 thumbnails"
+      style="height:40vh; margin-bottom:10vh; padding-left:40px">
+
+      <div class="card">
+        <div class="card-body">
+          <img src="{{galleryImage.image_url.url}}" class="img-fluid img-thumbnail img-responsive" alt="image"
+            data-toggle="modal" data-target="#{{galleryImage.id}}" style="height:40vh; width:40vw"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="{{galleryImage.id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+
+          </div>
+          <div class="modal-body">
+
+            <img src="{{galleryImage.image_url.url}}" width="100%" alt="">
+
+            <h5 class="text-center" style="font-size: 35px; font-family: 'Bigshot One', cursive;">
+              <strong> {{galleryImage.title}}</strong>
+            </h5>
+            <p class="text-left" style="font-size: 20px; font-family: 'Stylish', sans-serif;">
+              <span style="font-family: 'Stylish', sans-serif;"><strong>IMAGE
+                  CATEGORY:</strong></span>{{galleryImage.category}}
+            </p>
+            <p class="text-left" style="font-size: 20px; font-family: 'Stylish', sans-serif;">
+              <strong>ABOUT THE IMAGE:</strong>{{galleryImage.imageDescription}}
+            </p>
+            <p class="text-left" style="font-size: 20px; font-family: 'Stylish', sans-serif;">
+              <strong>LOCATION WHERE TAKEN:</strong> {{galleryImage.image_location}}
+            </p>
+            <p class="text-left" style="font-size: 20px; font-family: 'Stylish', sans-serif;">
+              <strong>UPLOADED ON:</strong> {{galleryImage.date_uploaded}}
+            </p>
+
+          </div>
+          <div class="modal-footer">
+
+            <input class="form-control input-md responsive" type="text" value="{{galleryImage.image_url.url}}"
+              id="{{galleryImage.id}}.url" />
+            <br>
+            <button type="button" class="btn btn-success " onclick="copy('{{galleryImage.image_url.url}}')">Copy
+              Link</button>
+
+            <button type="button" class="btn btn-danger " data-dismiss="modal">Close</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+
+  <!-- Button trigger modal -->
+
+  <!-- Modal -->
+
+  {% endblock %}
+
+</section>
+
+
+
+<script>
+  copy = (element) => {
+    document.getElementById(element).select();
+    document.execCommand("copy");
+  }
+</script>
